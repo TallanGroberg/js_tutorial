@@ -2,28 +2,31 @@
 
 
 // DONT FORGET TO BROWSERFY WHEN MAKING CHANGES!!!!
-
-function palindromeTester() {
-
-
 let Phrase = require("cicadapurp-palindrome");
 
-let string = prompt("Please enter a string for palindrome testing:");
-let phrase = new Phrase(string);
+function palindromeTester(event) {
+  event.preventDefault();
 
-if (phrase.palindrome()) {
-  alert(`"${phrase.content}" is a palindrome!`);
-} else {
-  alert(`"${phrase.content}" is not a palindrome.`)
-  }
+	if (!event.target.phrase.value){
+		alert("please enter a value to test!");
+	} else {
 
-}
+  let phrase = new Phrase(event.target.phrase.value);
+  let palindromeResult = document.querySelector("#palindromeResult");
+
+	  if (phrase.palindrome()) {
+	    palindromeResult.innerHTML = `"<strong>${phrase.content}</strong>" is a palindrome!`;
+	  } else {
+	    palindromeResult.innerHTML = `"<strong>${phrase.content}</strong>" is a <strong>not</strong> a palindrome.`;
+	  }
+	 }
+	}
 
 document.addEventListener("DOMContentLoaded", function() {
-  let button = document.querySelector("#palindromeTester");
-  button.addEventListener("click",
-    palindromeTester);
-
+  let tester = document.querySelector("#palindromeTester");
+  tester.addEventListener("submit", function() {
+    palindromeTester(event);
+  });
 });
 
 },{"cicadapurp-palindrome":2}],2:[function(require,module,exports){
